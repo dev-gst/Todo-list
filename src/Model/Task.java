@@ -43,7 +43,12 @@ public class Task {
         return priority;
     }
 
+    // Priority has to be between 1 and 5
     public void setPriority(int priority) {
+        if (priority < 1 || priority > 5) {
+            throw new IllegalArgumentException();
+        }
+
         this.priority = priority;
     }
 
