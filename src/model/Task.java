@@ -1,8 +1,6 @@
 package model;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Task {
     private final int id;
@@ -12,11 +10,10 @@ public class Task {
     private int priority;
     private TaskStatus status;
     private ZonedDateTime deadline;
-    private List<String> categories;
+    private String category;
 
     public Task(int id) {
         this.id = id;
-        this.categories = new ArrayList<>();
     }
 
     public int getId() {
@@ -52,16 +49,12 @@ public class Task {
         this.priority = priority;
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
-
-    public void addCategory(String category) {
-        categories.add(category);
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public TaskStatus getStatus() {
@@ -91,7 +84,7 @@ public class Task {
                             "\n\nPRIORITY: " + this.priority +
                             "\nDeadline: " + this.deadline +
                             "\n\nStatus: " + this.status +
-                            "\nCategories: " + this.categories.toString();
+                            "\nCategory: " + this.category;
         } else {
             taskToString =
                     "Task" +
@@ -99,7 +92,7 @@ public class Task {
                             "\nName: " + this.name +
                             "\nDescription: " + this.description +
                             "\n\nStatus: " + this.status +
-                            "\nCategories: " + this.categories.toString();
+                            "\nCategory: " + this.category;
         }
 
         return taskToString;

@@ -1,11 +1,10 @@
 package model;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 public class TaskDTO {
 
-    private final List<String> categories;
+    private final String category;
     private final String name;
     private final String description;
     private final int priority;
@@ -13,8 +12,8 @@ public class TaskDTO {
     private final ZonedDateTime deadline;
 
     public TaskDTO(String name, String description, int priority,
-                   TaskStatus status, ZonedDateTime deadline, List<String> categories) {
-        this.categories = categories;
+                   TaskStatus status, ZonedDateTime deadline, String category) {
+        this.category = category;
         this.name = name;
         this.description = description;
         this.priority = priority;
@@ -23,12 +22,12 @@ public class TaskDTO {
     }
 
     public TaskDTO(String name, String description, int priority,
-                   ZonedDateTime deadline, List<String> categories) {
-        this(name, description, priority, TaskStatus.TODO, deadline, categories);
+                   ZonedDateTime deadline, String category) {
+        this(name, description, priority, TaskStatus.TODO, deadline, category);
     }
 
-    public List<String> getCategories() {
-        return categories;
+    public String getCategory() {
+        return category;
     }
 
     public String getName() {
