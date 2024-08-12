@@ -79,4 +79,29 @@ public class Task {
     public void setDeadline(ZonedDateTime completionDate) {
         this.deadline = completionDate;
     }
+
+    public String toString() {
+        String taskToString;
+        if (this.status == TaskStatus.TODO || this.status == TaskStatus.DOING) {
+            taskToString =
+                    "Task" +
+                            "\nId: " + this.id +
+                            "\nName: " + this.name +
+                            "\nDescription: " + this.description +
+                            "\n\nPRIORITY: " + this.priority +
+                            "\nDeadline: " + this.deadline +
+                            "\n\nStatus: " + this.status +
+                            "\nCategories: " + this.categories.toString();
+        } else {
+            taskToString =
+                    "Task" +
+                            "\nId: " + this.id +
+                            "\nName: " + this.name +
+                            "\nDescription: " + this.description +
+                            "\n\nStatus: " + this.status +
+                            "\nCategories: " + this.categories.toString();
+        }
+
+        return taskToString;
+    }
 }
