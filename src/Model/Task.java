@@ -12,7 +12,7 @@ public class Task {
     private String description;
     private int priority;
     private TaskStatus status;
-    private ZonedDateTime completionDate;
+    private ZonedDateTime deadline;
 
     public Task(int id) {
         this.id = id;
@@ -63,11 +63,11 @@ public class Task {
         this.status = status;
     }
 
-    public ZonedDateTime getCompletionDate() {
-        return completionDate;
+    public ZonedDateTime getDeadline() {
+        return deadline;
     }
 
-    public void setCompletionDate(ZonedDateTime completionDate) {
-        this.completionDate = completionDate;
+    public void setDeadline(ZonedDateTime completionDate) {
+        this.deadline = completionDate;
     }
 }
