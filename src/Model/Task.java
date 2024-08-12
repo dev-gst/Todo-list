@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Task {
     private final int id;
-    private final List<String> categories;
 
     private String name;
     private String description;
     private int priority;
     private TaskStatus status;
     private ZonedDateTime deadline;
+    private List<String> categories;
 
     public Task(int id) {
         this.id = id;
@@ -54,6 +54,10 @@ public class Task {
 
     public List<String> getCategories() {
         return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 
     public void addCategory(String category) {
