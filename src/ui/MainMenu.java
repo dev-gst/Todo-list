@@ -2,7 +2,6 @@ package ui;
 
 import model.SortMethod;
 import model.TaskDTO;
-import services.SortTasks;
 import services.TaskServices;
 import ui.menus.*;
 
@@ -39,20 +38,20 @@ public class MainMenu {
                 case 2:
                     TaskDTO taskDTO = CreateTaskMenu.createTask();
                     taskServices.createTask(taskDTO);
-                    SortTasks.sort(taskServices.getTasks(), taskServices.getSortBy());
+                    taskServices.sort();
                     break;
                 case 3:
                     UpdateTaskMenu.updateTaskStatus(taskServices.getTasks());
-                    SortTasks.sort(taskServices.getTasks(), taskServices.getSortBy());
+                    taskServices.sort();
                     break;
                 case 4:
                     taskServices.deleteTaskById(DeleteTaskMenu.deleteById());
-                    SortTasks.sort(taskServices.getTasks(), taskServices.getSortBy());
+                    taskServices.sort();
                     break;
                 case 5:
                     SortMethod sortMethod = SortMenu.getSortBy();
                     taskServices.setSortBy(sortMethod);
-                    SortTasks.sort(taskServices.getTasks(), taskServices.getSortBy());
+                    taskServices.sort();
                     break;
                 case MENU_ENTRIES:
                     return;
