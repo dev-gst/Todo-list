@@ -1,4 +1,4 @@
-package ui;
+package ui.menus;
 
 import model.SortMethod;
 
