@@ -1,6 +1,7 @@
 package ui;
 
 import model.TaskDTO;
+import model.TaskStatus;
 
 import java.time.ZonedDateTime;
 import java.util.Scanner;
@@ -54,6 +55,14 @@ public class CreateTaskMenu {
             }
         }
 
-        return new TaskDTO(name, description, priority, deadline, category);
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setName(name);
+        taskDTO.setDescription(description);
+        taskDTO.setCategory(category);
+        taskDTO.setDeadline(deadline);
+        taskDTO.setPriority(priority);
+        taskDTO.setStatus(TaskStatus.TODO);
+
+        return taskDTO;
     }
 }

@@ -4,49 +4,64 @@ import java.time.ZonedDateTime;
 
 public class TaskDTO {
 
-    private final String category;
-    private final String name;
-    private final String description;
-    private final int priority;
-    private final TaskStatus status;
-    private final ZonedDateTime deadline;
+    private String category;
+    private String name;
+    private String description;
+    private int priority;
+    private TaskStatus status;
+    private ZonedDateTime deadline;
 
-    public TaskDTO(String name, String description, int priority,
-                   TaskStatus status, ZonedDateTime deadline, String category) {
-        this.category = category;
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-        this.status = status;
-        this.deadline = deadline;
-    }
-
-    public TaskDTO(String name, String description, int priority,
-                   ZonedDateTime deadline, String category) {
-        this(name, description, priority, TaskStatus.TODO, deadline, category);
-    }
+    public TaskDTO() {}
 
     public String getCategory() {
         return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getPriority() {
         return priority;
     }
 
+    public void setPriority(int priority) {
+        if (priority < 1 || priority > 5) {
+            throw new IllegalArgumentException();
+        }
+
+        this.priority = priority;
+    }
+
     public TaskStatus getStatus() {
         return status;
     }
 
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
     public ZonedDateTime getDeadline() {
         return deadline;
+    }
+
+    public void setDeadline(ZonedDateTime deadline) {
+        this.deadline = deadline;
     }
 }
