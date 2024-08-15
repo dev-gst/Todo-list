@@ -1,7 +1,7 @@
 package ui;
 
 import model.SortMethod;
-import model.TaskDTO;
+import model.DTOs.TaskDTO;
 import services.TaskServices;
 import ui.menus.*;
 

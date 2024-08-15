@@ -1,6 +1,6 @@
 package ui.menus;
 
-import model.TaskDTO;
+import model.DTOs.TaskDTO;
 import model.TaskStatus;
 
 import java.time.ZonedDateTime;

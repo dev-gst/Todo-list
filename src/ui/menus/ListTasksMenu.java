@@ -1,6 +1,6 @@
 package ui.menus;
 
-import model.Task;
+import model.entities.Task;
 
 import java.util.List;
 
