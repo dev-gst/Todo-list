@@ -1,10 +1,11 @@
 package services;
 
 import model.SortMethod;
-import model.Task;
-import model.TaskDTO;
+import model.entities.Task;
+import model.DTOs.TaskDTO;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class TaskServices {
     private final ArrayList<Task> tasks;
@@ -48,5 +49,16 @@ public class TaskServices {
 
     private void incrementId() {
         this.currentId++;
+    }
+
+    public void sort() {
+        switch (this.sortBy) {
+            case BY_STATUS:
+                tasks.sort(Comparator.comparing(Task::getStatus));
+            case BY_CATEGORY:
+                tasks.sort(Comparator.comparing(Task::getCategory));
+            default:
+                tasks.sort(Comparator.comparingInt(Task::getPriority));
+        }
     }
 }
