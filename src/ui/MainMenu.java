@@ -6,7 +6,6 @@ import services.TaskServices;
 import ui.menus.*;
 
 import java.util.Scanner;
-
 public class MainMenu {
     private static final int MENU_ENTRIES = 6;
 
@@ -17,20 +16,8 @@ public class MainMenu {
     }
 
     public void startMenu() {
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            int usrInput;
-            printMainMenu();
-
-            try {
-                System.out.print("> ");
-                String input = scanner.nextLine();
-                usrInput = Integer.parseInt(input);
-            } catch (Exception e) {
-                System.out.println("Please enter a number of 1 to " + MENU_ENTRIES);
-                continue;
-            }
-
+            int usrInput = getUserInput();
             switch (usrInput) {
                 case 1:
                     ListTasksMenu.listTasks(taskServices.getTasks());
@@ -71,5 +58,26 @@ public class MainMenu {
         System.out.println("5 - Sort tasks");
         System.out.println(MENU_ENTRIES + " - Exit program");
         System.out.println();
+    }
+
+    private int getUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        int usrInput;
+        while (true) {
+            printMainMenu();
+            try {
+                System.out.print("> ");
+                String input = scanner.nextLine();
+                usrInput = Integer.parseInt(input);
+                if (usrInput >= 1 && usrInput <= MENU_ENTRIES) {
+                    break;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Please enter a number of 1 to " + MENU_ENTRIES);
+            }
+        }
+
+        return usrInput;
     }
 }
