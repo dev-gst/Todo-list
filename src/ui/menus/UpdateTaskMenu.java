@@ -1,7 +1,7 @@
 package ui.menus;
 
-import model.entities.Task;
-import model.TaskStatus;
+import models.entities.Task;
+import models.TaskStatus;
 
 import java.util.List;
 import java.util.Scanner;

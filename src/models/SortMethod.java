@@ -1,4 +1,4 @@
-package model;
+package models;
 
 public enum SortMethod {
     BY_PRIORITY,

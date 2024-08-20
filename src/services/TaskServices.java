@@ -1,8 +1,8 @@
 package services;
 
-import model.SortMethod;
-import model.entities.Task;
-import model.DTOs.TaskDTO;
+import models.SortMethod;
+import models.entities.Task;
+import models.DTOs.TaskDTO;
 
 import java.util.ArrayList;
 import java.util.Comparator;

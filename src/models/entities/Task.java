@@ -1,6 +1,6 @@
-package model.entities;
+package models.entities;
 
-import model.TaskStatus;
+import models.TaskStatus;
 
 import java.time.ZonedDateTime;
 
