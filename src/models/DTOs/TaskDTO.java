@@ -1,6 +1,6 @@
-package model.DTOs;
+package models.DTOs;
 
-import model.TaskStatus;
+import models.TaskStatus;
 
 import java.time.ZonedDateTime;
 

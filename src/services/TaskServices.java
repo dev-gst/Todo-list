@@ -1,21 +1,24 @@
 package services;
 
-import model.SortMethod;
-import model.entities.Task;
-import model.DTOs.TaskDTO;
+import models.SortMethod;
+import models.entities.Task;
+import models.DTOs.TaskDTO;
+import repositories.FileRepository;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.List;
 
 public class TaskServices {
-    private final ArrayList<Task> tasks;
-    private int currentId;
+    private final FileRepository fileRepository;
+
     private SortMethod sortBy;
 
-    public TaskServices() {
-        this.tasks = new ArrayList<>();
-        this.currentId = 1;
-        this.sortBy = SortMethod.BY_PRIORITY;
+    public TaskServices(FileRepository fileRepository, SortMethod defaultSortMethod) {
+        this.fileRepository= fileRepository;
+        this.sortBy = defaultSortMethod;
+    }
+
+    public TaskServices(FileRepository fileRepository) {
+        this(fileRepository, SortMethod.BY_PRIORITY);
     }
 
     public SortMethod getSortBy() {
@@ -26,12 +29,12 @@ public class TaskServices {
         this.sortBy = sortBy;
     }
 
-    public ArrayList<Task> getTasks() {
-        return tasks;
+    public List<Task> getTasks() {
+        return fileRepository.getTasks();
     }
 
     public void createTask(TaskDTO taskDTO) {
-        Task task = new Task(currentId);
+        Task task = new Task();
         task.setName(taskDTO.getName());
         task.setDescription(taskDTO.getDescription());
         task.setPriority(taskDTO.getPriority());
@@ -39,26 +42,14 @@ public class TaskServices {
         task.setCategory(taskDTO.getCategory());
         task.setStatus(taskDTO.getStatus());
 
-        tasks.add(task);
-        incrementId();
+        fileRepository.add(task);
     }
 
     public void deleteTaskById(int id) {
-        tasks.removeIf(task -> task.getId() == id);
-    }
-
-    private void incrementId() {
-        this.currentId++;
+        fileRepository.removeByID(id);
     }
 
     public void sort() {
-        switch (this.sortBy) {
-            case BY_STATUS:
-                tasks.sort(Comparator.comparing(Task::getStatus));
-            case BY_CATEGORY:
-                tasks.sort(Comparator.comparing(Task::getCategory));
-            default:
-                tasks.sort(Comparator.comparingInt(Task::getPriority));
-        }
+        this.fileRepository.sort(this.sortBy);
     }
 }

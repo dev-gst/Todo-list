@@ -1,12 +1,11 @@
-package model.entities;
+package models.entities;
 
-import model.TaskStatus;
+import models.TaskStatus;
 
 import java.time.ZonedDateTime;
 
 public class Task {
-    private final int id;
-
+    private int id;
     private String name;
     private String description;
     private int priority;
@@ -14,12 +13,14 @@ public class Task {
     private ZonedDateTime deadline;
     private String category;
 
-    public Task(int id) {
-        this.id = id;
-    }
+    public Task(){}
 
     public int getId() {
         return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -75,6 +76,7 @@ public class Task {
         this.deadline = completionDate;
     }
 
+    @Override
     public String toString() {
         String taskToString;
         if (this.status == TaskStatus.TODO || this.status == TaskStatus.DOING) {
