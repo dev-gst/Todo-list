@@ -1,6 +1,6 @@
 package ui.menus;
 
-import model.SortMethod;
+import models.SortMethod;
 
 import java.util.Scanner;
 
