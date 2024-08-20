@@ -23,8 +23,13 @@ public class FileRepository {
     }
 
     public void saveAll() {
-        for (Task task : taskList) {
-            save(task, false);
+        if (taskList.isEmpty()) {
+            return;
+        }
+
+        // Only reset file on the first iteration
+        for (int i = 0; i < taskList.size(); i++) {
+            save(taskList.get(i), i != 0);
         }
     }
 
@@ -104,7 +109,7 @@ public class FileRepository {
     }
 
     private Task constructTaskHelper(String line) {
-        String[] fields = line.split(",");
+        String[] fields = line.trim().split(",");
 
         Task task = new Task();
         task.setID(Integer.parseInt(fields[0]));
