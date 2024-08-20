@@ -73,10 +73,13 @@ public class FileRepository {
         switch (sortBy) {
             case BY_STATUS:
                 taskList.sort(Comparator.comparing(Task::getStatus));
+                break;
             case BY_CATEGORY:
                 taskList.sort(Comparator.comparing(Task::getCategory));
+                break;
             default: // By_PRIORITY
                 taskList.sort(Comparator.comparingInt(Task::getPriority));
+                break;
         }
 
         saveAll();
@@ -101,6 +104,7 @@ public class FileRepository {
             while ((line = bufferedReader.readLine()) != null) {
                 Task task = constructTaskHelper(line);
                 this.taskList.add(task);
+                CURRENT_ID++;
             }
 
         } catch (IOException e) {
