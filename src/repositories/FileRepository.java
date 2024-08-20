@@ -101,6 +101,7 @@ public class FileRepository {
             while ((line = bufferedReader.readLine()) != null) {
                 Task task = constructTaskHelper(line);
                 this.taskList.add(task);
+                CURRENT_ID++;
             }
 
         } catch (IOException e) {
