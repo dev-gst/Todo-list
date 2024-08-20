@@ -1,3 +1,5 @@
+App by Gustavo de Araújo Garcia
+
 ### How to execute the file
 
 #### 01 - From src type in Bash:
