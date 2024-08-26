@@ -163,6 +163,15 @@ class TaskService {
             i++;
         }
     }
+
+    deleteTaskByID(ID) {
+        try {
+            let taskID = Number.parseInt(ID)
+            this.tasks = this.tasks.filter(task => task.ID !== taskID);
+        } catch (e) {
+            console.error("Invalid input: " + e.getmessage())
+        }
+    }
 }
 
 class Main {
@@ -173,7 +182,7 @@ class Main {
         taskService.populateTasks();
         taskService.listTasks();
 
-        document.getElementById("create-task-button").onclick = function(e) {
+        document.getElementById("create-task-button").onclick = (e) => {
             e.preventDefault();
             let taskName = document.getElementById("insert-name").value;
             let taskDescription = document.getElementById("insert-description").value;
@@ -192,6 +201,14 @@ class Main {
             )
             
             taskService.createTask(task);
+            taskService.listTasks();
+        }
+
+        document.getElementById("delete-task-button").onclick = (e) => {
+            e.preventDefault();
+            let taskID = document.getElementById("delete-by-id").value;
+            
+            taskService.deleteTaskByID(taskID);
             taskService.listTasks();
         }
     }

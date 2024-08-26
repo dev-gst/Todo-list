@@ -29,7 +29,7 @@ th {
     background-color: rgb(8, 139, 24);
 }
 
-#create-task-form {
+.task-form {
     max-width: 300px;
     margin-left: 20px;
     padding: 5px;
@@ -38,6 +38,6 @@ th {
     flex-direction: column;
 }
 
-#create-task-form input {
+.task-form input {
     margin: 5px 0;
 }
