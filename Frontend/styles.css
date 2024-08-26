@@ -1,0 +1,30 @@
+.list-table {
+    border-collapse: collapse;
+}
+
+.priority-alignment,
+th {
+    text-align: center;
+}
+
+.list-table, td {
+    border: 1px solid black;
+    padding: 3px 8px;
+}
+
+thead {
+    color: white;
+    background-color: rgb(2, 49, 2);
+}
+
+th {
+    padding: 0 15px;
+}
+
+.table-color1 {
+    background-color: rgb(70, 165, 70);
+}
+
+.table-color2 {
+    background-color: rgb(8, 139, 24);
+}
