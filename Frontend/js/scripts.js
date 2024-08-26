@@ -1,12 +1,21 @@
 class Task {
-    
+    ID;
+
     constructor(name, description, deadline, priority, category, status) {
         this.name = name;
         this.description = description;
-        this.deadline = deadline;
+        this.deadline = this.setDeadline(deadline);
         this.priority = this.setPriority(priority);
         this.category = category;
-        this.status = status;
+        this.status = this.setStatus(status);
+    }
+
+    setID(ID) {
+        this.ID = ID;
+    }
+
+    getID() {
+        return this.ID;
     }
 
     setPriority(n) {
@@ -14,7 +23,8 @@ class Task {
             throw new ReferenceError("Priority cannot be null");
         }
 
-        if (Number.isInteger(n) && n >= 1 && n <= 5) {
+        let p = Number.parseInt(n);
+        if (p >= 1 && p <= 5) {
             return n;
         }
 
@@ -22,10 +32,35 @@ class Task {
     }
 
     setDeadline(strDate) {
-        return new Date(strDate);
+        let date = this.parseDate(strDate)
+        
+        if (isNaN(date.getTime())) {
+            console.error("Invalid date");
+            return "";
+        } 
+
+        return date;
+    }
+
+    parseDate(strDate) {
+        try {
+            const [datePart, timePart] = strDate.split(" ");
+            const [day, month, year] = datePart.split("/").map(Number);
+            const [hour, min] = timePart.split(":").map(Number)
+
+            return new Date(year, month - 1, day, hour, min);
+        } catch (e) {
+            console.log("Error parsing the date")
+            return "";
+        }
     }
 
     getDeadline() {
+        if (this.deadline === "") {
+            console.error("No valid date provided")
+            return "";
+        }
+
         return this.formatDate(this.deadline.getDate()) +
                "/" +
                this.formatDate(this.deadline.getMonth() + 1) +
@@ -42,30 +77,26 @@ class Task {
     }
 
     setStatus(n) {
-        if (n === undefined || n === null) {
-            throw new ReferenceError("Status cannot be null");
-        }
-
-        if (typeof n !== "string") {
-            throw new TypeError("Status has to be a string");
+        if (!n) {
+            console.error("Status cannot be null")
         }
 
         n = n.toUpperCase();
 
         switch (n) {
-            case "TODO":
-                return "TODO";
             case "DOING":
                 return "DOING";
             case "DONE":
                 return "DONE";
             default:
-                throw new RangeError("Status can only be set as TODO, DOING or DONE");
+                return "TODO";
         }
     }
 }
 
 class TaskService {
+
+    currentID = 1;
 
     constructor(tasks) {
         this.tasks = tasks;
@@ -75,28 +106,30 @@ class TaskService {
         let task = new Task(
             "Limpeza da casa",
             "A casa precisa ser limpa",
-            new Date(),
+            "26/08/2024 08:30",
             2,
             "casa",
             "TODO"
         );
 
-        this.tasks.push(task);
+        this.createTask(task);
 
         let task2 = new Task(
             "Futebol",
             "jogo de futebol na próxima terça",
-            new Date(2024, 7, 27),
+            "29/08/2024 20:40",
             1,
             "esporte",
             "TODO"
         );
 
-        this.tasks.push(task2);
+        this.createTask(task2);
     }
 
-    createTask() {
-
+    createTask(task) {
+        task.setID(this.currentID);
+        this.tasks.push(task);
+        this.currentID++;
     }
 
     listTasks() {
@@ -105,7 +138,7 @@ class TaskService {
         const PRIORITYALIGNMENT = "priority-alignment";
 
         let table = document.querySelector(".list-table-body");
-        table.innerHTML += "<tr></tr>";
+        table.innerHTML = "";
         
         let i = 0;
         let colorSet = "";
@@ -119,6 +152,7 @@ class TaskService {
 
             table.innerHTML += 
             `<tr class="${colorSet}">` +
+                `<td>${task.getID()}</td>` +
                 `<td>${task.name}</td>` +
                 `<td>${task.description}</td>` +
                 `<td>${task.getDeadline()}</td>` +
@@ -138,8 +172,34 @@ class Main {
 
         taskService.populateTasks();
         taskService.listTasks();
+
+        document.getElementById("create-task-button").onclick = function(e) {
+            e.preventDefault();
+            let taskName = document.getElementById("insert-name").value;
+            let taskDescription = document.getElementById("insert-description").value;
+            let taskDeadLine = document.getElementById("insert-deadline").value;
+            let taskPriority = document.getElementById("insert-priority").value;
+            let taskCategory = document.getElementById("insert-category").value;
+            let taskStatus = document.getElementById("insert-status").value;
+            
+            let task = new Task(
+                taskName,
+                taskDescription,
+                taskDeadLine,
+                taskPriority,
+                taskCategory,
+                taskStatus 
+            )
+            
+            taskService.createTask(task);
+            taskService.listTasks();
+        }
     }
+
 }
 
 Main.main()
+
+
+
 

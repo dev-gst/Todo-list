@@ -28,3 +28,16 @@ th {
 .table-color2 {
     background-color: rgb(8, 139, 24);
 }
+
+#create-task-form {
+    max-width: 300px;
+    margin-left: 20px;
+    padding: 5px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+#create-task-form input {
+    margin: 5px 0;
+}
