@@ -32,7 +32,7 @@ class Task {
     }
 
     setDeadline(strDate) {
-        let date = this.parseDate(strDate)
+        let date = this.parseDate(strDate);
         
         if (isNaN(date.getTime())) {
             console.error("Invalid date");
@@ -78,7 +78,7 @@ class Task {
 
     setStatus(n) {
         if (!n) {
-            console.error("Status cannot be null")
+            console.error("Status cannot be null");
         }
 
         n = n.toUpperCase();
@@ -109,7 +109,7 @@ class TaskService {
             "26/08/2024 08:30",
             2,
             "casa",
-            "TODO"
+            "DONE"
         );
 
         this.createTask(task);
@@ -172,6 +172,24 @@ class TaskService {
             console.error("Invalid input: " + e.getmessage())
         }
     }
+
+    sortTasks(sortType) {
+        if (typeof sortType !== "string") {
+            return;
+        }
+
+        sortType = sortType.toUpperCase();
+        switch (sortType) {
+            case "CATEGORY":
+                this.tasks.sort((a, b) => a.category.localeCompare(b.category));  
+                break;
+            case "STATUS":
+                this.tasks.sort((a, b) => b.status.localeCompare(a.status));  
+                break;
+            case "PRIORITY":
+                this.tasks.sort((a, b) => a.priority - b.priority);          
+        }
+    }
 }
 
 class Main {
@@ -209,6 +227,14 @@ class Main {
             let taskID = document.getElementById("delete-by-id").value;
             
             taskService.deleteTaskByID(taskID);
+            taskService.listTasks();
+        }
+
+        document.getElementById("sort-by").onchange = (e) => {
+            e.preventDefault();
+            let sortMethod = document.getElementById("sort-by").value;
+            
+            taskService.sortTasks(sortMethod);
             taskService.listTasks();
         }
     }

@@ -29,6 +29,13 @@
         <tbody class="list-table-body">
     </table>
 
+    <select id="sort-by">
+        <option id="sort-placeholder" selected>----sort by----</option>
+        <option id="sort-by-priority">priority</option>
+        <option id="sort-by-category">category</option>
+        <option id="sort-by-status">status</option>
+    </select>
+
     <h2>Create tasks</h2>
     <form id="create-task-form" class="task-form">
         <input id="insert-name" placeholder="Insert name">
@@ -37,7 +44,7 @@
         <input id="insert-priority" placeholder="Insert priority (1-5)">
         <input id="insert-category" placeholder="Insert category">
         <input id="insert-status" placeholder="Insert status">
-        
+
         <button id="create-task-button">Create</button>
     </form>
 
