@@ -1,12 +1,12 @@
 class Task {
-    
+
     constructor(name, description, deadline, priority, category, status, ID = 0) {
         this.name = name;
         this.description = description;
-        this.deadline = this.setDeadline(deadline);
-        this.priority = this.setPriority(priority);
+        this.setDeadline(deadline);
+        this.setPriority(priority);
         this.category = category;
-        this.status = this.setStatus(status);
+        this.setStatus(status);
         this.ID = ID;
     }
 
@@ -25,18 +25,20 @@ class Task {
 
         let p = Number.parseInt(n);
         if (p >= 1 && p <= 5) {
-            return n;
+            this.priority = n;
+            return;
         }
 
-        throw new TypeError("Priority has to be an integer number of 1 to 5") ;
+        throw new TypeError("Priority has to be an integer number of 1 to 5");
     }
 
-    setDeadline(strDate) {       
+    setDeadline(strDate) {
         if (!isNaN(Date.parse(strDate))) {
-            return new Date(strDate);
+            this.deadline = new Date(strDate);
+            return;
         }
 
-        return this.parseDate(strDate);
+        this.deadline = this.parseDate(strDate);
     }
 
     parseDate(strDate) {
@@ -59,10 +61,10 @@ class Task {
         }
 
         return this.formatDate(this.deadline.getDate()) +
-               "/" +
-               this.formatDate(this.deadline.getMonth() + 1) +
-               "/" +
-               this.deadline.getFullYear().toString();
+            "/" +
+            this.formatDate(this.deadline.getMonth() + 1) +
+            "/" +
+            this.deadline.getFullYear().toString();
     }
 
     formatDate(n) {
@@ -79,14 +81,15 @@ class Task {
         }
 
         n = n.toUpperCase();
-
         switch (n) {
             case "DOING":
-                return "DOING";
+                this.status = "DOING";
+                break;
             case "DONE":
-                return "DONE";
+                this.status = "DONE";
+                break;
             default:
-                return "TODO";
+                this.status = "TODO";
         }
     }
 }
@@ -98,7 +101,7 @@ class TaskService {
     constructor(tasks) {
         if (localStorage.getItem("my-tasks")) {
             this.tasks = this.parseLocalStorage();
-            this.currentID = this.tasks[this.tasks.length -1].ID + 1;
+            this.currentID = this.tasks[this.tasks.length - 1].ID + 1;
         } else {
             this.tasks = tasks;
             this.populateTasks();
@@ -172,6 +175,15 @@ class TaskService {
         }
     }
 
+    updateTaskStatusByID(ID, newStatus) {
+        
+        for (let task of this.tasks) {
+            if (task.ID == ID) {
+                task.setStatus(newStatus);
+            }
+        }
+    }
+
     listTasks() {
         const COLORTYPE1 = "table-color1";
         const COLORTYPE2 = "table-color2";
@@ -179,7 +191,7 @@ class TaskService {
 
         let table = document.querySelector(".list-table-body");
         table.innerHTML = "";
-        
+
         let i = 0;
         let colorSet = "";
         for (let task of this.tasks) {
@@ -190,19 +202,23 @@ class TaskService {
                 colorSet = COLORTYPE2;
             }
 
-            table.innerHTML += 
-            `<tr class="${colorSet}">` +
-                `<td>${task.getID()}</td>` +
+            table.innerHTML +=
+                `<tr class="${colorSet}">` +
+                `<td><input type="checkbox" class="checkbox-tasks" value="${task.getID()}">${task.getID()}</td>` +
                 `<td>${task.name}</td>` +
                 `<td>${task.description}</td>` +
                 `<td>${task.getDeadline()}</td>` +
                 `<td class="${PRIORITYALIGNMENT}">${task.priority}</td>` +
                 `<td>${task.category}</td>` +
                 `<td>${task.status}</td>` +
-            `</tr>`;
+                `</tr>`;
             i++;
         }
 
+        this.saveAll();
+    }
+
+    saveAll() {
         localStorage.setItem("my-tasks", JSON.stringify(this.tasks));
     }
 
@@ -223,13 +239,13 @@ class TaskService {
         sortType = sortType.toUpperCase();
         switch (sortType) {
             case "CATEGORY":
-                this.tasks.sort((a, b) => a.category.localeCompare(b.category));  
+                this.tasks.sort((a, b) => a.category.localeCompare(b.category));
                 break;
             case "STATUS":
-                this.tasks.sort((a, b) => b.status.localeCompare(a.status));  
+                this.tasks.sort((a, b) => b.status.localeCompare(a.status));
                 break;
             case "PRIORITY":
-                this.tasks.sort((a, b) => a.priority - b.priority);         
+                this.tasks.sort((a, b) => a.priority - b.priority);
         }
     }
 }
@@ -250,16 +266,16 @@ class Main {
             let taskPriority = document.getElementById("insert-priority").value;
             let taskCategory = document.getElementById("insert-category").value;
             let taskStatus = document.getElementById("insert-status").value;
-            
+
             let task = new Task(
                 taskName,
                 taskDescription,
                 taskDeadLine,
                 taskPriority,
                 taskCategory,
-                taskStatus 
+                taskStatus
             )
-            
+
             if (taskID) {
                 taskService.updateTaskByID(taskID, task);
             } else {
@@ -272,7 +288,7 @@ class Main {
         document.getElementById("delete-task-button").onclick = (e) => {
             e.preventDefault();
             let taskID = document.getElementById("delete-by-id").value;
-            
+
             taskService.deleteTaskByID(taskID);
             taskService.listTasks();
         }
@@ -283,6 +299,21 @@ class Main {
 
             taskService.sortTasks(sortType);
             taskService.listTasks();
+            e.target.selectedIndex = 0;
+        }
+
+        document.getElementById("update-status").onchange = (e) => {
+            let taskIDs = document.getElementsByClassName("checkbox-tasks");
+
+            for (let checkbox of taskIDs) {
+                if (checkbox.checked) {
+                    let updatedStatus = document.getElementById("update-status").value;
+                    taskService.updateTaskStatusByID(checkbox.value, updatedStatus);
+                }
+            }
+
+            taskService.listTasks();
+            e.target.selectedIndex = 0;
         }
     }
 

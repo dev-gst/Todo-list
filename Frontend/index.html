@@ -14,6 +14,12 @@
 <body>
     <h1>TODO LIST</h1>
     <h2>List tasks</h2>
+    <select id="sort-by">
+        <option id="sort-placeholder" selected>----sort by----</option>
+        <option id="sort-by-priority">priority</option>
+        <option id="sort-by-category">category</option>
+        <option id="sort-by-status">status</option>
+    </select>
     <table class="list-table">
         <thead>
             <tr>
@@ -29,11 +35,11 @@
         <tbody class="list-table-body">
     </table>
 
-    <select id="sort-by">
-        <option id="sort-placeholder" selected>----sort by----</option>
-        <option id="sort-by-priority">priority</option>
-        <option id="sort-by-category">category</option>
-        <option id="sort-by-status">status</option>
+    <select id="update-status">
+        <option class="update-status-option" selected>----Update tasks status----</option>
+        <option class="update-status-option">TODO</option>
+        <option class="update-status-option">DOING</option>
+        <option class="update-status-option">DONE</option>
     </select>
 
     <h2>Create/Update tasks</h2>
