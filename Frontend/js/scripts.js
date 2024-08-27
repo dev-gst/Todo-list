@@ -1,13 +1,13 @@
 class Task {
-    ID;
-
-    constructor(name, description, deadline, priority, category, status) {
+    
+    constructor(name, description, deadline, priority, category, status, ID = 0) {
         this.name = name;
         this.description = description;
         this.deadline = this.setDeadline(deadline);
         this.priority = this.setPriority(priority);
         this.category = category;
         this.status = this.setStatus(status);
+        this.ID = ID;
     }
 
     setID(ID) {
@@ -31,15 +31,12 @@ class Task {
         throw new TypeError("Priority has to be an integer number of 1 to 5") ;
     }
 
-    setDeadline(strDate) {
-        let date = this.parseDate(strDate);
-        
-        if (isNaN(date.getTime())) {
-            console.error("Invalid date");
-            return "";
-        } 
+    setDeadline(strDate) {       
+        if (!isNaN(Date.parse(strDate))) {
+            return new Date(strDate);
+        }
 
-        return date;
+        return this.parseDate(strDate);
     }
 
     parseDate(strDate) {
@@ -99,7 +96,33 @@ class TaskService {
     currentID = 1;
 
     constructor(tasks) {
-        this.tasks = tasks;
+        if (localStorage.getItem("my-tasks")) {
+            this.tasks = this.parseLocalStorage();
+            this.currentID = this.tasks[this.tasks.length -1].ID + 1;
+        } else {
+            this.tasks = tasks;
+            this.populateTasks();
+        }
+    }
+
+    parseLocalStorage() {
+        let tempArray = JSON.parse(localStorage.getItem("my-tasks"));
+        let finalArray = []
+        for (let o of tempArray) {
+            let task = new Task(
+                o.name,
+                o.description,
+                o.deadline,
+                o.priority,
+                o.category,
+                o.status,
+                o.ID
+            )
+
+            finalArray.push(task);
+        }
+
+        return finalArray;
     }
 
     populateTasks() {
@@ -162,6 +185,8 @@ class TaskService {
             `</tr>`;
             i++;
         }
+
+        localStorage.setItem("my-tasks", JSON.stringify(this.tasks));
     }
 
     deleteTaskByID(ID) {
@@ -187,7 +212,7 @@ class TaskService {
                 this.tasks.sort((a, b) => b.status.localeCompare(a.status));  
                 break;
             case "PRIORITY":
-                this.tasks.sort((a, b) => a.priority - b.priority);          
+                this.tasks.sort((a, b) => a.priority - b.priority);         
         }
     }
 }
@@ -197,7 +222,6 @@ class Main {
         let taskList = [];
         let taskService = new TaskService(taskList);
 
-        taskService.populateTasks();
         taskService.listTasks();
 
         document.getElementById("create-task-button").onclick = (e) => {
