@@ -1,13 +1,14 @@
 class TaskService {
 
-    currentID = 1;
+    currentID;
 
     constructor(tasks) {
-        if (localStorage.getItem("my-tasks")) {
+        if (localStorage.getItem("my-tasks") && localStorage.getItem("current-id")) {
             this.tasks = this.parseLocalStorage();
-            this.currentID = this.tasks[this.tasks.length - 1].ID + 1;
+            this.currentID = Number.parseInt(localStorage.getItem("current-id"));
         } else {
             this.tasks = tasks;
+            currentID = 1;
             this.populateTasks();
         }
     }
@@ -30,6 +31,11 @@ class TaskService {
         }
 
         return finalArray;
+    }
+
+    saveAll() {
+        localStorage.setItem("my-tasks", JSON.stringify(this.tasks));
+        localStorage.setItem("current-id", this.currentID)
     }
 
     populateTasks() {
@@ -120,10 +126,6 @@ class TaskService {
         }
 
         this.saveAll();
-    }
-
-    saveAll() {
-        localStorage.setItem("my-tasks", JSON.stringify(this.tasks));
     }
 
     deleteTaskByID(ID) {
