@@ -49,7 +49,7 @@ class Task {
 
             return new Date(year, month - 1, day, hour, min);
         } catch (e) {
-            console.log("Error parsing the date")
+            console.error("Error parsing the date")
             return "";
         }
     }
@@ -285,14 +285,6 @@ class Main {
             taskService.listTasks();
         }
 
-        document.getElementById("delete-task-button").onclick = (e) => {
-            e.preventDefault();
-            let taskID = document.getElementById("delete-by-id").value;
-
-            taskService.deleteTaskByID(taskID);
-            taskService.listTasks();
-        }
-
         document.getElementById("sort-by").onchange = (e) => {
             e.preventDefault();
             let sortType = document.getElementById("sort-by").value;
@@ -314,6 +306,19 @@ class Main {
 
             taskService.listTasks();
             e.target.selectedIndex = 0;
+        }
+
+        document.getElementById("delete-task-button").onclick = (e) => {
+            e.preventDefault();
+            let taskIDs = document.getElementsByClassName("checkbox-tasks");
+
+            for (let checkbox of taskIDs) {
+                if (checkbox.checked) {
+                    taskService.deleteTaskByID(checkbox.value);
+                }
+            }
+
+            taskService.listTasks();
         }
     }
 
