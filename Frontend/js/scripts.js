@@ -155,6 +155,23 @@ class TaskService {
         this.currentID++;
     }
 
+    updateTaskByID(ID, changedTask) {
+        let taskID = Number.parseInt(ID);
+
+        for (let task of this.tasks) {
+            if (task.ID === taskID) {
+                task.name = changedTask.name;
+                task.description = changedTask.description;
+                task.deadline = changedTask.deadline;
+                task.priority = changedTask.priority;
+                task.category = changedTask.category;
+                task.status = changedTask.status;
+
+                return;
+            }
+        }
+    }
+
     listTasks() {
         const COLORTYPE1 = "table-color1";
         const COLORTYPE2 = "table-color2";
@@ -226,6 +243,7 @@ class Main {
 
         document.getElementById("create-task-button").onclick = (e) => {
             e.preventDefault();
+            let taskID = document.getElementById("insert-id").value;
             let taskName = document.getElementById("insert-name").value;
             let taskDescription = document.getElementById("insert-description").value;
             let taskDeadLine = document.getElementById("insert-deadline").value;
@@ -242,7 +260,12 @@ class Main {
                 taskStatus 
             )
             
-            taskService.createTask(task);
+            if (taskID) {
+                taskService.updateTaskByID(taskID, task);
+            } else {
+                taskService.createTask(task);
+            }
+
             taskService.listTasks();
         }
 
@@ -256,9 +279,9 @@ class Main {
 
         document.getElementById("sort-by").onchange = (e) => {
             e.preventDefault();
-            let sortMethod = document.getElementById("sort-by").value;
-            
-            taskService.sortTasks(sortMethod);
+            let sortType = document.getElementById("sort-by").value;
+
+            taskService.sortTasks(sortType);
             taskService.listTasks();
         }
     }
@@ -266,7 +289,3 @@ class Main {
 }
 
 Main.main()
-
-
-
-
