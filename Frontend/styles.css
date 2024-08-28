@@ -67,10 +67,7 @@ th {
     flex-wrap: wrap;
 }
 
-#sort-by,
-#update-status,
-#delete-task-button,
-#create-task-button {
+.task-button {
     border: none;
     background-color: #fffb00;
     color: #000000;
@@ -82,10 +79,7 @@ th {
     font-weight: 600;
 }
 
-#update-status:hover,
-#delete-task-button:hover,
-#sort-by:hover,
-#create-task-button:hover {
+.task-button:hover {
     border: 2px #fffb00 solid;
     color: #fffb00;
     background-color: #000000;
