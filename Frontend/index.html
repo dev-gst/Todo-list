@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="js/models/Task.js" defer></script>
+    <script src="js/services/TaskService.js" defer></script>
+    <script src="js/Main.js" defer></script>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <title>TODO LIST</title>
+</head>
+
+<body>
+    <h1 class="site-title">TODO LIST</h1>
+
+    <section class="listing-tasks">
+        <h2>List Tasks</h2>
+        
+        <table class="list-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Deadline</th>
+                    <th>Priority</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="list-table-body">
+        </table>
+    </section>
+
+    <section class="bottom-buttons">
+        <select id="update-status">
+            <option class="update-status-option" selected>Update tasks status</option>
+            <option class="update-status-option">TODO</option>
+            <option class="update-status-option">DOING</option>
+            <option class="update-status-option">DONE</option>
+        </select>
+
+        <form id="delete-task-form">
+            <button id="delete-task-button">Delete tasks</button>
+        </form>
+
+        <select id="sort-by">
+            <option id="sort-placeholder" selected>Sort by</option>
+            <option id="sort-by-priority">priority</option>
+            <option id="sort-by-category">category</option>
+            <option id="sort-by-status">status</option>
+        </select>
+    </section>
+
+    <section class="creating-tasks">
+        <h2>Save Task</h2>
+        <form id="create-task-form" class="task-form">
+            <input id="insert-id" placeholder="Insert id to update or leave blank to create">
+            <input id="insert-name" placeholder="Insert name">
+            <input id="insert-description" placeholder="Insert description">
+            <input id="insert-deadline" placeholder="Insert deadline (01/02/1900 20:57)">
+            <input id="insert-priority" placeholder="Insert priority (1-5)">
+            <input id="insert-category" placeholder="Insert category">
+            <input id="insert-status" placeholder="Insert status">
+
+            <button id="create-task-button"><b>Save</b></button>
+        </form>
+    </section>
+
+    <footer>
+        <p>2024 © TODO LIST</p>
+    </footer>
+</body>
+
+</html>
