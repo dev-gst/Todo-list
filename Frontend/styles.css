@@ -1,0 +1,124 @@
+html {
+    font-family:'Times New Roman', Times, serif;
+    background-color: #141300;
+}
+
+body {
+    margin: 0;
+    padding: 0 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-title {
+    margin: 0 -30px 15px;
+    padding: 5px 20px;
+    background-color: #000000;
+    color: #fffb00;
+}
+
+h2 {
+    margin: 5px;
+    color: #fffb00;
+}
+
+.list-table {
+    border-collapse: collapse;
+}
+
+.priority-alignment,
+th {
+    text-align: center;
+}
+
+.listing-tasks {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    margin: 0 0 20px 0;
+}
+
+.list-table, td {
+    border: 1px solid black;
+    padding: 3px 8px;
+    margin: 16px 8px 16px 0;
+}
+
+thead {
+    color: #000000;
+    background-color: #ffee00;
+}
+
+th {
+    padding: 0 15px;
+}
+
+.table-color1 {
+    background-color: #fdff6f;
+}
+
+.table-color2 {
+    background-color: #fffd8e;
+}
+
+.bottom-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#sort-by,
+#update-status,
+#delete-task-button,
+#create-task-button {
+    border: none;
+    background-color: #fffb00;
+    color: #000000;
+    padding: 8px;
+    min-width: 150px;
+    height: 40px;
+    margin: 0px 8px 16px 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+#update-status:hover,
+#delete-task-button:hover,
+#sort-by:hover,
+#create-task-button:hover {
+    border: 2px #fffb00 solid;
+    color: #fffb00;
+    background-color: #000000;
+}
+
+.task-form {
+    background-color: #fdff6f;
+    max-width: 300px;
+    margin: auto;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.task-form input {
+    background-color: #fffd8e;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 5px 0;
+}
+
+#create-task-button {
+    margin: 5px auto;
+}
+
+footer {
+    margin: 0 -30px;
+    min-height: 30px;
+    background-color: #000000;
+    color:#ffffff;
+    font-size: 12px;
+    text-align: center;
+}
