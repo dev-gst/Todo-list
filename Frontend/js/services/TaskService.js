@@ -1,14 +1,12 @@
 class TaskService {
 
-    currentID;
-
     constructor(tasks) {
         if (localStorage.getItem("my-tasks") && localStorage.getItem("current-id")) {
             this.tasks = this.parseLocalStorage();
             this.currentID = Number.parseInt(localStorage.getItem("current-id"));
         } else {
             this.tasks = tasks;
-            currentID = 1;
+            this.currentID = 1;
             this.populateTasks();
         }
     }
@@ -152,6 +150,44 @@ class TaskService {
                 break;
             case "PRIORITY":
                 this.tasks.sort((a, b) => a.priority - b.priority);
+        }
+    }
+
+    filterTasksByStatus(status) {
+        console.log(status)
+        let filteredTasks = [...this.tasks];
+        filteredTasks = filteredTasks.filter(task => task.status === status);
+
+        console.log(filteredTasks)
+
+        const COLORTYPE1 = "table-color1";
+        const COLORTYPE2 = "table-color2";
+        const PRIORITYALIGNMENT = "priority-alignment";
+
+        let table = document.querySelector(".list-table-body");
+        table.innerHTML = "";
+
+        let i = 0;
+        let colorSet = "";
+        for (let task of filteredTasks) {
+
+            if (i % 2 === 0) {
+                colorSet = COLORTYPE1;
+            } else {
+                colorSet = COLORTYPE2;
+            }
+
+            table.innerHTML +=
+                `<tr class="${colorSet}">` +
+                `<td><input type="checkbox" class="checkbox-tasks" value="${task.getID()}">${task.getID()}</td>` +
+                `<td>${task.name}</td>` +
+                `<td>${task.description}</td>` +
+                `<td>${task.getDeadline()}</td>` +
+                `<td class="${PRIORITYALIGNMENT}">${task.priority}</td>` +
+                `<td>${task.category}</td>` +
+                `<td>${task.status}</td>` +
+                `</tr>`;
+            i++;
         }
     }
 }

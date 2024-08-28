@@ -66,3 +66,16 @@ document.getElementById("delete-task-button").onclick = (e) => {
 
     taskService.listTasks();
 }
+
+document.getElementById("filter-by-status").onchange = (e) => {
+    const value = document.getElementById("filter-by-status").value;
+
+    if (value === "No filter") {
+        taskService.listTasks();
+
+    } else {
+        taskService.filterTasksByStatus(value);
+    }
+
+    e.target.selectedIndex = 0;
+}

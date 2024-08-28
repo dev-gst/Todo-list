@@ -1,14 +1,17 @@
 html {
+    background-color: #FFFDD0;
     font-family:'Times New Roman', Times, serif;
-    background-color: #141300;
+   
 }
 
 body {
-    margin: 0;
+    max-width: 900px;
+    margin: auto;
     padding: 0 30px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    background-color: #141300;
 }
 
 .site-title {
@@ -67,10 +70,7 @@ th {
     flex-wrap: wrap;
 }
 
-#sort-by,
-#update-status,
-#delete-task-button,
-#create-task-button {
+.task-button {
     border: none;
     background-color: #fffb00;
     color: #000000;
@@ -82,10 +82,7 @@ th {
     font-weight: 600;
 }
 
-#update-status:hover,
-#delete-task-button:hover,
-#sort-by:hover,
-#create-task-button:hover {
+.task-button:hover {
     border: 2px #fffb00 solid;
     color: #fffb00;
     background-color: #000000;

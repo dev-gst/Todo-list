@@ -7,7 +7,7 @@
 
     <script src="js/models/Task.js" defer></script>
     <script src="js/services/TaskService.js" defer></script>
-    <script src="js/Main.js" defer></script>
+    <script src="js/App.js" defer></script>
 
     <link rel="stylesheet" href="styles.css">
 
@@ -37,22 +37,30 @@
     </section>
 
     <section class="bottom-buttons">
-        <select id="update-status">
-            <option class="update-status-option" selected>Update tasks status</option>
+        <select class="task-button" id="update-status">
+            <option class="update-status-option" selected>Update status</option>
             <option class="update-status-option">TODO</option>
             <option class="update-status-option">DOING</option>
             <option class="update-status-option">DONE</option>
         </select>
 
         <form id="delete-task-form">
-            <button id="delete-task-button">Delete tasks</button>
+            <button class="task-button" id="delete-task-button">Delete tasks</button>
         </form>
 
-        <select id="sort-by">
+        <select class="task-button" id="sort-by">
             <option id="sort-placeholder" selected>Sort by</option>
             <option id="sort-by-priority">priority</option>
             <option id="sort-by-category">category</option>
             <option id="sort-by-status">status</option>
+        </select>
+
+        <select class="task-button" id="filter-by-status">
+            <option class="filter-status-option" selected>Filter tasks</option>
+            <option class="filter-status-option">TODO</option>
+            <option class="filter-status-option">DOING</option>
+            <option class="filter-status-option">DONE</option>
+            <option class="filter-status-option">No filter</option>
         </select>
     </section>
 
